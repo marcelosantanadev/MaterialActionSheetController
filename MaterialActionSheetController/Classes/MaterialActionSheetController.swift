@@ -1,10 +1,3 @@
-//
-//  MaterialActionSheetController.swift
-//
-//  Created by Thanh-Nhon Nguyen on 08/18/2016.
-//  Copyright (c) 2016 Thanh-Nhon Nguyen. All rights reserved.
-//
-
 import Foundation
 
 // MARK: Action
@@ -30,7 +23,7 @@ public struct MaterialAction {
 // MARK: Appearance
 public struct MaterialActionSheetTheme {
     public var dimBackgroundColor: UIColor = UIColor.black.withAlphaComponent(0.2)
-    public var backgroundColor: UIColor = UIColor.white
+    public var backgroundColor: UIColor = UIColor.clear
     public var animationDuration: TimeInterval = 0.25
     
     // Header's title label
