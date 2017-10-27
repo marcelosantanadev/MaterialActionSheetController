@@ -160,7 +160,7 @@ public final class MaterialActionSheetController: UIViewController {
         }
     }
     
-    fileprivate func dismiss() {
+    public func dismiss() {
         willDismiss?()
         UIView.animate(withDuration: theme.animationDuration, animations: {[unowned self] in
             self.tableView.frame.origin = CGPoint(x: 0, y: self.applicationWindow.frame.height)
@@ -178,9 +178,9 @@ public final class MaterialActionSheetController: UIViewController {
     fileprivate func addDimBackgroundView() {
         dimBackgroundView = UIView(frame: applicationWindow.frame)
         dimBackgroundView.backgroundColor = theme.dimBackgroundColor
-        let tap = UITapGestureRecognizer(target: self, action: #selector(MaterialActionSheetController.dimBackgroundViewTapped))
-        dimBackgroundView.isUserInteractionEnabled = true
-        dimBackgroundView.addGestureRecognizer(tap)
+//        let tap = UITapGestureRecognizer(target: self, action: #selector(MaterialActionSheetController.dimBackgroundViewTapped))
+//        dimBackgroundView.isUserInteractionEnabled = true
+//        dimBackgroundView.addGestureRecognizer(tap)
         applicationWindow.addSubview(dimBackgroundView)
         dimBackgroundView.alpha = 0
         UIView.animate(withDuration: theme.animationDuration, animations: { [unowned self] in
@@ -249,14 +249,14 @@ extension MaterialActionSheetController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "\(MaterialActionSheetTableViewCell.self)", for: indexPath) as! MaterialActionSheetTableViewCell
         cell.bind(action: action)
         
-        cell.onTapAccessoryView = { [unowned self] in
-            action.accessoryHandler?(action.accessoryView)
-            
-            if let dismissOnAccessoryTouch = action.dismissOnAccessoryTouch
-                , dismissOnAccessoryTouch == true {
-                self.dismiss()
-            }
-        }
+//        cell.onTapAccessoryView = { [unowned self] in
+//            action.accessoryHandler?(action.accessoryView)
+//
+//            if let dismissOnAccessoryTouch = action.dismissOnAccessoryTouch
+//                , dismissOnAccessoryTouch == true {
+//                self.dismiss()
+//            }
+//        }
         
         return cell
     }
@@ -279,7 +279,7 @@ extension MaterialActionSheetController: UITableViewDelegate {
         }
         
         action.handler?(action.accessoryView)
-        dismiss()
+//        dismiss()
     }
     
     // Add separator between sections
