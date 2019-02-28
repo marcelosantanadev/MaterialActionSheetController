@@ -141,11 +141,11 @@ public final class MaterialActionSheetController: UIViewController {
             } else {
                 self.tableView.frame.origin = CGPoint(x: 0, y: self.applicationWindow.frame.height - self.theme.maxHeight)
             }
-        }) 
+        })
         
         
     }
-
+    
     deinit {
         tableView.removeObserver(self, forKeyPath: "contentSize")
     }
@@ -165,27 +165,27 @@ public final class MaterialActionSheetController: UIViewController {
         UIView.animate(withDuration: theme.animationDuration, animations: {[unowned self] in
             self.tableView.frame.origin = CGPoint(x: 0, y: self.applicationWindow.frame.height)
             self.dimBackgroundView.alpha = 0
-        }, completion: { [unowned self] (finished) in
-            self.tableView.removeFromSuperview()
-            self.dimBackgroundView.removeFromSuperview()
-            self.dismiss(animated: false, completion: {
-                self.didDismiss?()
-            })
-        }) 
+            }, completion: { [unowned self] (finished) in
+                self.tableView.removeFromSuperview()
+                self.dimBackgroundView.removeFromSuperview()
+                self.dismiss(animated: false, completion: {
+                    self.didDismiss?()
+                })
+        })
     }
     
     // Dim background
     fileprivate func addDimBackgroundView() {
         dimBackgroundView = UIView(frame: applicationWindow.frame)
         dimBackgroundView.backgroundColor = theme.dimBackgroundColor
-//        let tap = UITapGestureRecognizer(target: self, action: #selector(MaterialActionSheetController.dimBackgroundViewTapped))
-//        dimBackgroundView.isUserInteractionEnabled = true
-//        dimBackgroundView.addGestureRecognizer(tap)
+        //        let tap = UITapGestureRecognizer(target: self, action: #selector(MaterialActionSheetController.dimBackgroundViewTapped))
+        //        dimBackgroundView.isUserInteractionEnabled = true
+        //        dimBackgroundView.addGestureRecognizer(tap)
         applicationWindow.addSubview(dimBackgroundView)
         dimBackgroundView.alpha = 0
         UIView.animate(withDuration: theme.animationDuration, animations: { [unowned self] in
             self.dimBackgroundView.alpha = 1
-        }) 
+        })
     }
     
     @objc fileprivate func dimBackgroundViewTapped() {
@@ -202,7 +202,7 @@ public final class MaterialActionSheetController: UIViewController {
         tableView.register(MaterialActionSheetHeaderTableViewCell.self, forCellReuseIdentifier: "\(MaterialActionSheetHeaderTableViewCell.self)")
         tableView.frame.origin = CGPoint(x: 0, y: applicationWindow.frame.height)
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 50
         tableView.separatorColor = theme.backgroundColor
         tableView.backgroundColor = theme.backgroundColor
@@ -249,14 +249,14 @@ extension MaterialActionSheetController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "\(MaterialActionSheetTableViewCell.self)", for: indexPath) as! MaterialActionSheetTableViewCell
         cell.bind(action: action)
         
-//        cell.onTapAccessoryView = { [unowned self] in
-//            action.accessoryHandler?(action.accessoryView)
-//
-//            if let dismissOnAccessoryTouch = action.dismissOnAccessoryTouch
-//                , dismissOnAccessoryTouch == true {
-//                self.dismiss()
-//            }
-//        }
+        //        cell.onTapAccessoryView = { [unowned self] in
+        //            action.accessoryHandler?(action.accessoryView)
+        //
+        //            if let dismissOnAccessoryTouch = action.dismissOnAccessoryTouch
+        //                , dismissOnAccessoryTouch == true {
+        //                self.dismiss()
+        //            }
+        //        }
         
         return cell
     }
@@ -266,7 +266,7 @@ extension MaterialActionSheetController: UITableViewDataSource {
 extension MaterialActionSheetController: UITableViewDelegate {
     // Selection logic
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-         // Tap at header does nothing
+        // Tap at header does nothing
         if !noHeader && (indexPath as NSIndexPath).section == 0 {
             return
         }
@@ -279,7 +279,7 @@ extension MaterialActionSheetController: UITableViewDelegate {
         }
         
         action.handler?(action.accessoryView)
-//        dismiss()
+        //        dismiss()
     }
     
     // Add separator between sections
@@ -354,7 +354,7 @@ private final class MaterialActionSheetTableViewCell: UITableViewCell {
     
     var onTapAccessoryView: (() -> Void)?
     
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         selectionStyle = .none
         contentView.backgroundColor = MaterialActionSheetTheme.currentTheme.backgroundColor
@@ -449,7 +449,7 @@ private final class MaterialActionSheetHeaderTableViewCell: UITableViewCell {
     fileprivate var titleLabel = UILabel()
     fileprivate var messageLabel = UILabel()
     
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         selectionStyle = .none
         contentView.backgroundColor = MaterialActionSheetTheme.currentTheme.backgroundColor
@@ -468,7 +468,7 @@ private final class MaterialActionSheetHeaderTableViewCell: UITableViewCell {
         titleLabel.numberOfLines = 0
         titleLabel.font = MaterialActionSheetTheme.currentTheme.headerTitleFont
         titleLabel.textColor = MaterialActionSheetTheme.currentTheme.headerTitleColor
-
+        
         NSLayoutConstraint(item: titleLabel, attribute: .leading, relatedBy: .equal, toItem: contentView, attribute: .leadingMargin, multiplier: 1, constant: 0).isActive = true
         NSLayoutConstraint(item: titleLabel, attribute: .trailing, relatedBy: .equal, toItem: contentView, attribute: .trailingMargin, multiplier: 1, constant: 0).isActive = true
         NSLayoutConstraint(item: titleLabel, attribute: .top, relatedBy: .equal, toItem: contentView, attribute: .top, multiplier: 1, constant: margin).isActive = true
